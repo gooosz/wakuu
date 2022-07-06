@@ -6,7 +6,7 @@
 # Manual:
 #
 # wakuu -p <projectName>		-> creates a new C project named <projectName>
-# wakuu -c <className>		-> creates a new class with <className>.h and <className>.c in given directories
+# wakuu -c <className>			-> creates a new class with <className>.h and <className>.c in given directories
 #
 #
 #
@@ -74,7 +74,7 @@ if [ "$tag" = "-p" ]; then
 	#TODO: change makefileContent so that *.o files get created into obj/ directory
 
 	#append content to files
-	makefileContent="PROJECT\t:= $name\nCC\t:= gcc\nCFLAGS\t:= -Wall -Werror \n#-Wextra -pedantic\n\nSRC\t:= ./src\nBIN\t:= ./bin\n\nOBJECTS\t:= main.o\n\n.PHONY: default\ndefault: \$(OBJECTS)\n\t\$(CC) -o \$(BIN)/\$(PROJECT) $^\n\n%.o: \$(SRC)/%.c\n\t\$(CC) -c $< -o \$@ \$(CFLAGS)\n"
+	makefileContent="PROJECT\t:= $name\nCC\t:= gcc\nCFLAGS\t:= -Wall -Werror \n#-Wextra -pedantic\n\nSRC\t:= ./src\nBIN\t:= ./bin\n\nOBJECTS\t:= main.o\n\n.PHONY: default\ndefault: \$(OBJECTS)\n\t\$(CC) -o \$(BIN)/\$(PROJECT) $^\n\n%.o: \$(SRC)/%.c\n\t\$(CC) -c $< -o \$@ \$(CFLAGS)\n\n\nclean:\n\trm *.o \$(PROJECT)"
 
 	mainContent="#include<stdio.h>\n\nint main(int argc, char** argv) {\n\t\treturn 0;\n}"
 
@@ -88,7 +88,7 @@ elif [ "$tag" = "-c" ]; then
 		createClass $name
 	else
 		#C Project doesn't exist, print manual
-		#to advise to use -project flag
+		#to advise to use -p flag
 		echo "C Project doesn't exist"
 		printManual
 	fi
