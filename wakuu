@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# --Wakuu--
+# is a script for creating a C like project structure and a Makefile
+
+# Manual:
+#
+# wakuu -p <projectName>		-> creates a new C project named <projectName>
+# wakuu -c <className>		-> creates a new class with <className>.h and <className>.c in given directories
+#
+#
+#
+#
+#
+
+function printManual() {
+	echo "---Manual---"
+	echo "wakuu is a small bash script for creating a C like project structure and a Makefile"
+	echo ""
+	echo "How to use:"
+	echo ""
+	echo "wakuu -p <name>		-> creates a new project named <name>"
+	echo "wakuu -c <name>		-> creates a new class with <name>.h and <name>.c in given directories"
+	echo "------"
+}
+
+function createClass() {
+	className=$1
+	CWD=$(pwdx $$)
+
+	headerContent="#pragma once\n\n"
+	srcContent="#include \"$className.h\"\n\n"
+
+	#create files and append to them
+	cd src/ && touch "$className.h" && touch "$className.c"
+
+	echo -e $headerContent >> "$className.h"
+	echo -e $srcContent >> "$className.c"
+	cd ..
+}
+
+tag=$1
+name=$2
+
+CWD=$(pwdx $$)
+
+if [ "$tag" = "-p" ]; then
+	#create Directory with projectName
+	mkdir $name
+	#go into it
+	cd $name
+
+	#create project structure:
+	# $name/
+	# |
+	# |---src/
+	# |	|-main.c
+	# |-Makefile
+	# |---obj/
+	# |	|-main.o
+	# |---bin/
+	# |	|-main
+	# |
+
+	#create subdirectories
+	mkdir src
+	mkdir obj
+	mkdir bin
+
+	#create files
+	touch Makefile
+	cd src && touch main.c && cd ..
+
+	#TODO: change makefileContent so that *.o files get created into obj/ directory
+
+	#append content to files
+	makefileContent="PROJECT\t:= $name\nCC\t:= gcc\nCFLAGS\t:= -Wall -Werror \n#-Wextra -pedantic\n\nSRC\t:= ./src\nBIN\t:= ./bin\n\nOBJECTS\t:= main.o\n\n.PHONY: default\ndefault: \$(OBJECTS)\n\t\$(CC) -o \$(BIN)/\$(PROJECT) $^\n\n%.o: \$(SRC)/%.c\n\t\$(CC) -c $< -o \$@ \$(CFLAGS)\n"
+
+	mainContent="#include<stdio.h>\n\nint main(int argc, char** argv) {\n\t\treturn 0;\n}"
+
+	echo -e $makefileContent >> Makefile
+	echo -e $mainContent >> src/main.c
+elif [ "$tag" = "-c" ]; then
+	#check if makefile exists, if so a C project already exists
+	if [ -f "Makefile" ]; then
+		echo "C Project exists - continue creating class $name"
+		createClass $name
+	else
+		#C Project doesn't exist, print manual
+		#to advise to use -project flag
+		echo "C Project doesn't exist"
+		printManual
+	fi
+else
+	echo "Wrong use"
+	printManual
+fi
