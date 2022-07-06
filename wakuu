@@ -81,7 +81,8 @@ if [ "$tag" = "-p" ]; then
 	echo -e $makefileContent >> Makefile
 	echo -e $mainContent >> src/main.c
 elif [ "$tag" = "-c" ]; then
-	#check if makefile exists, if so a C project already exists
+	#check if makefile and bin and src directory exists, if so a C project already exists
+	CWD=$(pwdx $$)
 	if [ -f "Makefile" ]; then
 		echo "C Project exists - continue creating class $name"
 		createClass $name
