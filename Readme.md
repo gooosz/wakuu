@@ -4,7 +4,7 @@
 
 wakuu is a small script for creating a project structure used for projects in the C programming language <br />
 
-name/ <br />
+\<projectName>/ <br />
 | <br />
 |---src/ <br />
 |&emsp;&emsp;|-main.c <br />
@@ -42,5 +42,5 @@ to create a new C project named \<projectName>
 
 > wakuu -c \<className>			
 
-to create a new class with <className>.h and <className>.c in given src/ directories
+to create a new class with \<className>.h and \<className>.c in given src/ directories
 <br />
