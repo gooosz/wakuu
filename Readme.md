@@ -7,7 +7,7 @@ wakuu is a small script for creating a project structure used for projects in th
 $name/ <br />
 | <br />
 |---src/ <br />
-|   |-main.c <br />
+|\t|-main.c <br />
 |-Makefile <br />
 |---obj/ <br />
 |  |-main.o <br />
