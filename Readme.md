@@ -4,16 +4,16 @@
 
 wakuu is a small script for creating a project structure used for projects in the C programming language <br />
 
-$name/
-	# |
-	# |---src/
-	# |   |-main.c
-	# |-Makefile
-	# |---obj/
-	# |	  |-main.o
-	# |---bin/
-	# |	  |-main
-	# |
+$name/ <br />
+| <br />
+|---src/ <br />
+|   |-main.c <br />
+|-Makefile <br />
+|---obj/ <br />
+|  |-main.o <br />
+|---bin/ <br />
+|  |-main <br />
+| <br />
 
 ======
 
