@@ -15,10 +15,9 @@ name/ <br />
 |---Makefile <br />
 <br />
 
-======
 
 ## Requirements
-======
+
 > git clone https://github.com/gooosz/wakuu.git
 
 > cd wakuu
