@@ -33,7 +33,7 @@ Create a symlink into /usr/bin to this script (sudo required) <br />
 <br />
 
 ## How to use
-======
+
 run
 
 > wakuu -p <projectName>
