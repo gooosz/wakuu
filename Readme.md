@@ -8,11 +8,11 @@ name/ <br />
 | <br />
 |---src/ <br />
 |&emsp;&emsp;|-main.c <br />
-|-Makefile <br />
 |---obj/ <br />
 |&emsp;&emsp;|-main.o <br />
 |---bin/ <br />
 |&emsp;&emsp;|-main <br />
+|-Makefile <br />
 | <br />
 
 ======
