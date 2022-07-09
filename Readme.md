@@ -36,11 +36,11 @@ Create a symlink into /usr/bin to this script (sudo required) <br />
 
 run
 
-> wakuu -p <projectName>
+> wakuu -p \<projectName>
   
-to create a new C project named <projectName>
+to create a new C project named \<projectName>
 
-> wakuu -c <className>			
+> wakuu -c \<className>			
 
 to create a new class with <className>.h and <className>.c in given src/ directories
 <br />
