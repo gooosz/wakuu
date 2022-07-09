@@ -10,9 +10,9 @@ $name/ <br />
 |&emsp;&emsp;|-main.c <br />
 |-Makefile <br />
 |---obj/ <br />
-|   |-main.o <br />
+|&emsp;&emsp;|-main.o <br />
 |---bin/ <br />
-|   |-main <br />
+|&emsp;&emsp;|-main <br />
 | <br />
 
 ======
