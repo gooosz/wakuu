@@ -12,7 +12,7 @@ name/ <br />
 |&emsp;&emsp;|-main.o <br />
 |---bin/ <br />
 |&emsp;&emsp;|-main <br />
-|-Makefile <br />
+|---Makefile <br />
 | <br />
 
 ======
