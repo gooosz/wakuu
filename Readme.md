@@ -9,14 +9,18 @@ wakuu is a small script for creating a project structure used for projects in th
 ## Requirements
 ======
 > git clone https://github.com/gooosz/wakuu.git
+
 <br />
 > cd wakuu
+
 <br />
-enable execution permission using
+enable execution permission using <br />
 > chmod u+x ./wakuu
+
 <br />
-Create a symlink into /usr/bin to this script (sudo required)
+Create a symlink into /usr/bin to this script (sudo required) <br />
 > ln -s <path to ./wakuu> /usr/bin/wakuu
+
 <br />
 
 ## How to use
