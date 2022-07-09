@@ -38,6 +38,7 @@ run
 > wakuu -p \<projectName>
   
 to create a new C project named \<projectName>
+<br />
 
 > wakuu -c \<className>			
 
