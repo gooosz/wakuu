@@ -5,8 +5,8 @@
 
 # Manual:
 #
-# wakuu -p <projectName>		-> creates a new C project named <projectName>
-# wakuu -c <className>			-> creates a new class with <className>.h and <className>.c in given directories
+# wakuu -<language> -p <projectName>		-> creates a new <language> project named <projectName>, based on the <language> different project structure
+# wakuu -<language> -c <className>			-> creates a new class of the language in given directories
 #
 #
 #
@@ -24,7 +24,7 @@ function printManual() {
 	echo "------"
 }
 
-function createClass() {
+function createClassC() {
 	className=$1
 	CWD=$(pwdx $$)
 
@@ -39,53 +39,147 @@ function createClass() {
 	cd ..
 }
 
-tag=$1
-name=$2
-
-CWD=$(pwdx $$)
-
-if [ "$tag" = "-p" ]; then
-	#create Directory with projectName
-	mkdir $name
-	#go into it
-	cd $name
-
+# Functions for creating a project structure based on the given language
+# Current support for:
+# -c
+# -cpp
+# -java
+# -python
+# -html
+# -bash
+function createStructureC() {
 	#create project structure:
 	# $name/
 	# |
 	# |---src/
-	# |	|-main.c
-	# |-Makefile
+	# |		|-main.c
 	# |---obj/
-	# |	|-main.o
+	# |		|-main.o
 	# |---bin/
-	# |	|-main
+	# |		|-$name
 	# |
+	# |-Makefile
+
+	#create directory with projectName
+	name=$1
+	mkdir $name
+	#go into it
+	cd $name
 
 	#create subdirectories
 	mkdir src
 	mkdir obj
 	mkdir bin
 
-	#create files
-	touch Makefile
-	cd src && touch main.c && cd ..
-
-	#TODO: change makefileContent so that *.o files get created into obj/ directory
-
 	#append content to files
-	makefileContent="PROJECT\t:= $name\nCC\t:= gcc\nCFLAGS\t:= -Wall -Werror \n#-Wextra -pedantic\n\nSRC\t:= ./src\nBIN\t:= ./bin\n\nOBJECTS\t:= main.o\n\n.PHONY: default\ndefault: \$(OBJECTS)\n\t\$(CC) -o \$(BIN)/\$(PROJECT) $^\n\n%.o: \$(SRC)/%.c\n\t\$(CC) -c $< -o \$@ \$(CFLAGS)\n\n\nclean:\n\trm *.o \$(PROJECT)"
+	makefileContent="PROJECT\t:= $name\nCC\t:= gcc\nCFLAGS\t:= -Wall -Werror \n#-Wextra -pedantic\n\nSRC\t:= ./src\nBIN\t:= ./bin\nOBJ\t:= ./obj\n\nOBJECTS\t:= main.o\n\n.PHONY: default\ndefault: \$(OBJECTS)\n\t\$(CC) -o \$(BIN)/\$(PROJECT) \$(OBJ)/$^\n\n%.o: \$(SRC)/%.c\n\t\$(CC) -c $< -o \$(OBJ)/\$@ \$(CFLAGS)\n\n\nclean:\n\trm \$(OBJ)/*.o \$(BIN)/\$(PROJECT)"
 
-	mainContent="#include<stdio.h>\n\nint main(int argc, char** argv) {\n\t\treturn 0;\n}"
+	mainContent="#include<stdio.h>\n\nint main(int argc, char** argv) {\n\treturn 0;\n}"
 
+	#create and append to files
 	echo -e $makefileContent >> Makefile
 	echo -e $mainContent >> src/main.c
+}
+
+function createStructureCPP() {
+	#create project structure:
+	# $name/
+	# |
+	# |---include/
+	# |
+	# |---src/
+	# |		|-main.c
+	# |---obj/
+	# |		|-main.o
+	# |---bin/
+	# |		|-$name
+	# |
+	# |-Makefile
+
+	#create directory with projectName
+	name=$1
+	mkdir $name
+	#go into it
+	cd $name
+
+	#create subdirectories
+	mkdir bin
+	mkdir include
+	mkdir src
+	mkdir obj
+
+	#append content to files
+	makefileContent="PROJECT\t:= $name\nCC\t:= g++\nCFLAGS\t:= -Wall -Werror \n#-Wextra -pedantic\n\nINC\t:= ./include\nSRC\t:= ./src\nBIN\t:= ./bin\nOBJ\t:= ./obj\n\nOBJECTS\t:= main.o\n\n.PHONY: default\ndefault: \$(OBJECTS)\n\t\$(CC) -o \$(BIN)/\$(PROJECT) \$(OBJ)/$^\n\n%.o: \$(SRC)/%.cpp\n\t\$(CC) -c $< -o \$(OBJ)/\$@ \$(CFLAGS)\n\n\nclean:\n\trm \$(OBJ)/*.o \$(BIN)/\$(PROJECT)"
+
+	mainContent="#include <iostream>\n\nint main(int argc, char **argv) {\n\tstd::cout << \"Hello World\" << '\\\n';\n\treturn 0;\n}"
+
+	#create and append to files
+	echo -e $makefileContent >> Makefile
+	echo -e $mainContent >> src/main.cpp
+}
+
+function createStructureJava() {
+	echo "Java"
+}
+
+function createStructurePython() {
+	echo "Python"
+}
+
+function createStructureHTML() {
+	echo "HTML"
+}
+
+function createStructureBash() {
+	#create project structure
+	# $name
+	# |
+	# |---$name.sh
+	# |
+
+	#create directory with project name
+	name=$1
+	mkdir $name
+	#go into it
+	cd $name
+
+	#content of bash file
+	bashContent="#!/bin/bash\n\n"
+
+	#create bash file and append content
+	echo -e $bashContent >> $name.sh
+}
+
+
+lang=$1
+tag=$2
+name=$3
+
+CWD=$(pwdx $$)
+
+if [ "$tag" = "-p" ]; then
+	# Create Project structure
+	# Check in which language
+	if [ "$lang" = "-c" ]; then
+		createStructureC $name
+	elif [ "$lang" = "-cpp" ]; then
+		createStructureCPP $name
+	elif [ "$lang" = "-java" ]; then
+		createStructureJava $name
+	elif [ "$lang" = "-python" ]; then
+		createStructurePython $name
+	elif [ "$lang" = "-html" ]; then
+		createStructureHTML $name
+	elif [ "$lang" = "-bash" ]; then
+		createStructureBash $name
+	fi
+
 elif [ "$tag" = "-c" ]; then
 	#check if makefile and bin and src directory exists, if so a C project already exists
 	CWD=$(pwdx $$)
 	if [ -f "Makefile" ]; then
 		echo "C Project exists - continue creating class $name"
-		createClass $name
+		createClassC $name
 	else
 		#C Project doesn't exist, print manual
 		#to advise to use -p flag
