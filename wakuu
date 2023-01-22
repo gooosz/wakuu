@@ -15,12 +15,15 @@
 
 function printManual() {
 	echo "---Manual---"
-	echo "wakuu is a small bash script for creating a C like project structure and a Makefile"
+	echo "wakuu is a small bash script for creating a project structure for different languages"
 	echo ""
 	echo "How to use:"
 	echo ""
-	echo "wakuu -p <name>		-> creates a new project named <name>"
-	echo "wakuu -c <name>		-> creates a new class with <name>.h and <name>.c in given directories"
+	echo "wakuu -<lang> -p <name>		-> creates a new project of language <lang> named <name>"
+	echo "wakuu -<lang> -c <name>		-> creates a new class of language <lang> with name <name> in given directories"
+	echo "------"
+	echo "Current supported languages:"
+	echo "c, cpp, java, python, bash, html, latex"
 	echo "------"
 }
 
@@ -28,8 +31,16 @@ function createClassC() {
 	className=$1
 	CWD=$(pwdx $$)
 
+	# Check if C project already exists
+	if [ ! -f "Makefile" ]; then
+		echo -e "C project does not exist\nUse -p to create the project first"
+		printManual
+		return
+	fi
+
 	headerContent="#pragma once\n\n"
 	srcContent="#include \"$className.h\"\n\n"
+	
 
 	#create files and append to them
 	cd src/ && touch "$className.h" && touch "$className.c"
@@ -37,6 +48,38 @@ function createClassC() {
 	echo -e $headerContent >> "$className.h"
 	echo -e $srcContent >> "$className.c"
 	cd ..
+}
+
+function createClassCPP() {
+	className=$1
+	CWD=$(pwdx $$)
+
+	echo "C++"
+}
+
+function createClassJava() {
+	className=$1
+	CWD=$(pwdx $$)
+
+	classContent="public class $className \n{\n\tpublic $className() {\n\t\n\t}\n}"
+
+	echo -e $classContent >> "$className.java"
+}
+
+function createClassPython() {
+	echo "Python"
+}
+
+function createClassHTML() {
+	echo "HTML"
+}
+
+function createClassBash() {
+	echo "bash"
+}
+
+function createClassLatex() {
+	echo "Latex"
 }
 
 # Functions for creating a project structure based on the given language
@@ -47,6 +90,7 @@ function createClassC() {
 # -python
 # -html
 # -bash
+# -latex
 function createStructureC() {
 	#create project structure:
 	# $name/
@@ -119,7 +163,13 @@ function createStructureCPP() {
 }
 
 function createStructureJava() {
-	echo "Java"
+	name=$1
+	mkdir $name
+	cd $name
+
+	mainClass="public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello World\");\n\t}\n}"
+
+	echo -e $mainClass >> Main.java
 }
 
 function createStructurePython() {
@@ -150,6 +200,19 @@ function createStructureBash() {
 	echo -e $bashContent >> $name.sh
 }
 
+function createStructureLatex() {
+	name=$1
+	mkdir $name
+	cd $name
+
+	# Content of .tex file
+	texContent=""
+
+	makefileContent="default:="
+
+	echo -e $texContent >> $name.tex
+	echo -e $makefileContent >> Makefile
+}
 
 lang=$1
 tag=$2
@@ -158,34 +221,35 @@ name=$3
 CWD=$(pwdx $$)
 
 if [ "$tag" = "-p" ]; then
-	# Create Project structure
-	# Check in which language
-	if [ "$lang" = "-c" ]; then
-		createStructureC $name
-	elif [ "$lang" = "-cpp" ]; then
-		createStructureCPP $name
-	elif [ "$lang" = "-java" ]; then
-		createStructureJava $name
-	elif [ "$lang" = "-python" ]; then
-		createStructurePython $name
-	elif [ "$lang" = "-html" ]; then
-		createStructureHTML $name
-	elif [ "$lang" = "-bash" ]; then
-		createStructureBash $name
-	fi
-
-elif [ "$tag" = "-c" ]; then
-	#check if makefile and bin and src directory exists, if so a C project already exists
-	CWD=$(pwdx $$)
-	if [ -f "Makefile" ]; then
-		echo "C Project exists - continue creating class $name"
-		createClassC $name
-	else
-		#C Project doesn't exist, print manual
-		#to advise to use -p flag
-		echo "C Project doesn't exist"
+	# Create project structure
+	# Check for language
+	case "$lang" in
+	"-c")		createStructureC $name ;;
+	"-cpp")		createStructureCPP $name ;;
+	"-java")	createStructureJava $name ;;
+	"-python")	createStructurePython $name ;;
+	"-html")	createStructureHTML $name ;;
+	"-bash")	createStructureBash $name ;;
+	"-latex")	createStructureLatex $name ;;
+	*)	echo "Not a supported language"
 		printManual
-	fi
+		;;
+	esac
+elif [ "$tag" = "-c" ]; then	
+	# Create a class
+	# Check in which language
+	case "$lang" in
+	"-c")		createClassC $name ;;
+	"-cpp")		createClassCPP $name ;;
+	"-java")	createClassJava $name ;;
+	"-python")	createClassPython $name ;;
+	"-html")	createClassHTML $name ;;
+	"-bash")	createClassBash $name ;;
+	"-latex")	createClassLatex $name ;;
+	*)	echo "Not a supported language"
+		printManual
+		;;
+	esac
 else
 	echo "Wrong use"
 	printManual
