@@ -116,12 +116,47 @@ function createStructureC() {
 	mkdir bin
 
 	#append content to files
-	makefileContent="PROJECT\t:= $name\nCC\t:= gcc\nCFLAGS\t:= -Wall -Werror \n#-Wextra -pedantic\n\nSRC\t:= ./src\nBIN\t:= ./bin\nOBJ\t:= ./obj\n\nOBJECTS\t:= main.o\n\n.PHONY: default\ndefault: \$(OBJECTS)\n\t\$(CC) -o \$(BIN)/\$(PROJECT) \$(OBJ)/$^\n\n%.o: \$(SRC)/%.c\n\t\$(CC) -c $< -o \$(OBJ)/\$@ \$(CFLAGS)\n\n\nclean:\n\trm \$(OBJ)/*.o \$(BIN)/\$(PROJECT)"
+	makefileContent=$(cat << END
+PROJECT	:= $name
+CC	:= gcc
+CFLAGS	:= -Wall -Werror
+#-Wextra -pedantic
+
+SRC	:= ./src
+BIN	:= ./bin
+OBJ	:= ./obj
+TEST	:= ./tests
+
+SRCFILES	:= \$(wildcard \$(SRC)/*.c)
+OBJECTFILES	:= \$(patsubst \$(SRC)/%.c, \$(OBJ)/%.o, \$(SRCFILES))
+
+TESTFILES	:= \$(wildcard \$(TEST)/*.c)
+TESTOBJECTS	:= \$(patsubst \$(TEST)/%.c, \$(TEST)/%.o, \$(TESTFILES))
+
+.PHONY: default clean test
+default: \$(OBJECTFILES)
+	\$(CC) -o \$(BIN)/\$(PROJECT) $^
+
+\$(OBJ)/%.o: \$(SRC)/%.c
+	\$(CC) -c $< -o \$@ \$(CFLAGS)
+
+
+test: \$(TESTOBJECTS)
+	\$(CC) -o \$(BIN)/\$(PROJECT) $^
+
+\$(TEST)/%.o: \$(TEST)/%.c
+	\$(CC) -c $< -o \$@ \$(CFLAGS)
+
+
+clean:
+	rm \$(OBJ)/*.o \$(BIN)/\$(PROJECT)
+END
+)
 
 	mainContent="#include<stdio.h>\n\nint main(int argc, char** argv) {\n\treturn 0;\n}"
 
 	#create and append to files
-	echo -e $makefileContent >> Makefile
+	echo "$makefileContent" >> Makefile
 	echo -e $mainContent >> src/main.c
 }
 
