@@ -24,12 +24,12 @@ Create a symlink into ~/.local/bin to this script <br />
 
 run
 
-> wakuu -<lang> -p \<projectName>
+> wakuu -\<lang> -p \<projectName>
   
-to create a new project of language <lang> named \<projectName>
+to create a new project of language \<lang> named \<projectName>
 <br />
 
-> wakuu -<lang> -c \<className>			
+> wakuu -\<lang> -c \<className>			
 
-to create a new class of language <lang> in given src/ directories of current directory
+to create a new class of language \<lang> in given src/ directories of current directory
 <br />
