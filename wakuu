@@ -137,14 +137,14 @@ TESTOBJECTS	:= \$(patsubst \$(TEST)/%.c, \$(TEST)/%.o, \$(TESTFILES))
 default: \$(OBJECTFILES)
 	\$(CC) -o \$(BIN)/\$(PROJECT) $^
 
-\$(OBJ)/%.o: \$(SRC)/%.c
+\$(OBJ)/%.o: \$(SRC)/%.c \$(SRC)/%.h Makefile
 	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
 
 test: \$(TESTOBJECTS)
 	\$(CC) -o \$(BIN)/\$(PROJECT) $^
 
-\$(TEST)/%.o: \$(TEST)/%.c
+\$(TEST)/%.o: \$(TEST)/%.c \$(TEST)/%.h Makefile
 	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
 
@@ -214,14 +214,14 @@ TESTOBJECTS	:= \$(patsubst \$(TEST)/%.cpp, \$(TEST)/%.o, \$(TESTFILES))
 default: \$(OBJECTFILES)
 	\$(CC) -o \$(BIN)/\$(PROJECT) $^
 
-\$(OBJ)/%.o: \$(SRC)/%.cpp
+\$(OBJ)/%.o: \$(SRC)/%.cpp \$(SRC)/%.h Makefile
 	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
 
 test: \$(TESTOBJECTS)
 	\$(CC) -o \$(BIN)/\$(PROJECT) \$^
 
-\$(TEST)/%.o: \$(TEST)/%.cpp
+\$(TEST)/%.o: \$(TEST)/%.cpp \$(TEST)/%.h Makefile
 	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
 
