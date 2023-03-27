@@ -25,19 +25,32 @@ Create a symlink into ~/.local/bin to this script <br />
 run
 
 > wakuu -\<lang> -p \<projectName>
-  
+
 to create a new project of language \<lang> named \<projectName>
 <br />
 
-> wakuu -\<lang> -c \<className>			
+> wakuu -\<lang> -c \<className>
 
 to create a new class of language \<lang> in given src/ directories of current directory
 <br />
-`
+
+
+| Command | project/class | language | name || Description |
+| ------- | ------------- | -------- | ---- || ----------- |
+| wakuu   | -c            | -p       | <center>*</center> || creates a project directory in C named `name` |
+| wakuu   | -c            | -c       | <center>*</center> || creates a header and source file in C named `name` |
+
+
 ### Options
-| Command                      | Description |
-| ---------------------------- | ----------- |
-| wakuu | param | param | name |             |
-|       | ----- | ----- | ---- |             |
-|       | -c    | -p    |      | creates a C project |
-|       | -c    | -c    |      |             |
+| project,class | currently supported languages |
+| ------------- | -------- |
+| -p            | -c       |
+| -c            | -cpp     |
+|               | -java    |
+|               | -bash    |
+|               | -latex   |
+
+
+
+
+
