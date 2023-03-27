@@ -33,3 +33,5 @@ to create a new project of language \<lang> named \<projectName>
 
 to create a new class of language \<lang> in given src/ directories of current directory
 <br />
+
+Current options of lang are: 
