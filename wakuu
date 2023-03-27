@@ -140,6 +140,8 @@ default: \$(OBJECTFILES)
 \$(OBJ)/%.o: \$(SRC)/%.c \$(SRC)/%.h Makefile
 	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
+\$(OBJ)/main.o: \$(SRC)/main.c Makefile
+	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
 test: \$(TESTOBJECTS)
 	\$(CC) -o \$(BIN)/\$(PROJECT) $^
@@ -217,6 +219,8 @@ default: \$(OBJECTFILES)
 \$(OBJ)/%.o: \$(SRC)/%.cpp \$(SRC)/%.h Makefile
 	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
+\$(OBJ)/main.o: \$(SRC)/main.cpp Makefile
+	\$(CC) -c $< -o \$@ \$(CFLAGS)
 
 test: \$(TESTOBJECTS)
 	\$(CC) -o \$(BIN)/\$(PROJECT) \$^
