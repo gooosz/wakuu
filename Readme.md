@@ -34,5 +34,10 @@ to create a new project of language \<lang> named \<projectName>
 to create a new class of language \<lang> in given src/ directories of current directory
 <br />
 `
-> **Note** Current options of lang are: `c, cpp`
-> the rest isn't implemented yet
+### Options
+| Command                      | Description |
+| ---------------------------- | ----------- |
+| wakuu | param | param | name |             |
+|       | ----- | ----- | ---- |             |
+|       | -c    | -p    |      | creates a C project |
+|       | -c    | -c    |      |             |
