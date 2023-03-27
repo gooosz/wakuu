@@ -1,18 +1,7 @@
 # Wakuu
 ### Unix only
 
-wakuu is a small script for creating a project structure used for projects in the C programming language <br />
-
-\<projectName>/ <br />
-| <br />
-|---src/ <br />
-|&emsp;&emsp;|-main.c <br />
-|---obj/ <br />
-|&emsp;&emsp;|-main.o <br />
-|---bin/ <br />
-|&emsp;&emsp;|-main <br />
-|---Makefile <br />
-<br />
+wakuu is a small script for creating a project structure in different programming language <br />
 
 
 ## Requirements
@@ -25,9 +14,9 @@ enable execution permission using <br />
 
 > chmod u+x ./wakuu
 
-Create a symlink into /usr/bin to this script (sudo required) <br />
+Create a symlink into ~/.local/bin to this script <br />
 
-> ln -s <path to ./wakuu> /usr/bin/wakuu
+> ln -s <path to ./wakuu> ~/.local/bin
 
 <br />
 
@@ -35,12 +24,12 @@ Create a symlink into /usr/bin to this script (sudo required) <br />
 
 run
 
-> wakuu -p \<projectName>
+> wakuu -<lang> -p \<projectName>
   
-to create a new C project named \<projectName>
+to create a new project of language <lang> named \<projectName>
 <br />
 
-> wakuu -c \<className>			
+> wakuu -<lang> -c \<className>			
 
-to create a new class with \<className>.h and \<className>.c in given src/ directories
+to create a new class of language <lang> in given src/ directories of current directory
 <br />
