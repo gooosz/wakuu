@@ -35,20 +35,20 @@ to create a new class of language \<lang> in given src/ directories of current d
 <br />
 
 
-| Command | project/class | language | name | Description |
+| Command | language      | project/class | name | Description |
 | ------- | ------------- | -------- | ---- | ----------- |
 | wakuu   | -c            | -p       | <center>*</center> | creates a project directory in C named `name` |
 | wakuu   | -c            | -c       | <center>*</center> | creates a header and source file in C named `name` |
 
 
 ### Options
-| project,class | currently supported languages |
+| currently supported languages | project/class |
 | ------------- | -------- |
-| -p            | -c       |
-| -c            | -cpp     |
-|               | -java    |
-|               | -bash    |
-|               | -latex   |
+| -c            | -p       |
+| -cpp          | -c       |
+| -java         |          |
+| -bash         |          |
+| -latex        |          |
 
 
 
