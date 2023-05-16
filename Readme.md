@@ -24,31 +24,26 @@ Create a symlink into ~/.local/bin to this script <br />
 
 run
 
-> wakuu -\<lang> -p \<projectName>
+> wakuu -\<lang> -{c | p} name
 
-to create a new project of language \<lang> named \<projectName>
-<br />
-
-> wakuu -\<lang> -c \<className>
-
-to create a new class of language \<lang> in given src/ directories of current directory
+to create a new class or project (based on 2nd param) of language \<lang> in given src/ directories of current directory
 <br />
 
 
-| Command | language      | project/class | name | Description |
-| ------- | ------------- | -------- | ---- | ----------- |
-| wakuu   | -c            | -p       | <center>*</center> | creates a project directory in C named `name` |
-| wakuu   | -c            | -c       | <center>*</center> | creates a header and source file in C named `name` |
+| Command | project/class | language | name || Description |
+| ------- | ------------- | -------- | ---- || ----------- |
+| wakuu   | -c            | -p       | <center>*</center> || creates a project directory in C named `name` |
+| wakuu   | -c            | -c       | <center>*</center> || creates a header and source file in C named `name` |
 
 
 ### Options
-| currently supported languages | project/class |
+| project,class | currently supported languages |
 | ------------- | -------- |
-| -c            | -p       |
-| -cpp          | -c       |
-| -java         |          |
-| -bash         |          |
-| -latex        |          |
+| -p            | -c       |
+| -c            | -cpp     |
+|               | -java    |
+|               | -bash    |
+|               | -latex   |
 
 
 
