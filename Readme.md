@@ -31,10 +31,10 @@ to create a new class or project (based on 2nd param) called 'name' of language 
 
 
 ### Examples
-| Command | project/class | language | name || Description |
-| ------- | ------------- | -------- | ---- || ----------- |
-| wakuu   | -c            | -p       | <center>*</center> || creates a project directory in C named `name` |
-| wakuu   | -c            | -c       | <center>*</center> || creates a header and source file in C named `name` |
+| Command | project/class | language | name | Description |
+| ------- | ------------- | -------- | ---- | ----------- |
+| wakuu   | -c            | -p       | <center>*</center> | creates a project directory in C named `name` |
+| wakuu   | -c            | -c       | <center>*</center> | creates a header and source file in C named `name` |
 
 
 ### Options
