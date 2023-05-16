@@ -26,8 +26,11 @@ run
 
 > wakuu -\<lang> -{c | p} name
 
-to create a new class or project (based on 2nd param) of language \<lang> in given src/ directories of current directory
+to create a new class or project (based on 2nd param) called 'name' of language \<lang> in given src/ directories of current directory
 <br />
+
+
+### Examples
 | Command | project/class | language | name || Description |
 | ------- | ------------- | -------- | ---- || ----------- |
 | wakuu   | -c            | -p       | <center>*</center> || creates a project directory in C named `name` |
